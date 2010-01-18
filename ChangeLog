@@ -6,11 +6,13 @@ wmsystemtray (1.1) unstable; urgency=low
   * Poorly-behaved apps (i.e. pretty much all of them) die if their tray icon
     window gets destroyed. Use XFixesChangeSaveSet to prevent this from
     happening if someone uses Window Maker's "Kill" on us.
+  * Handle the case where poorly-behaved apps try to map their own icon
+    instead of letting us do it.
   * Generic configure cleanups.
   * Minor fixes to build cleanly with -Wall.
   * Bump copyright date.
 
- -- Brad Jorsch <anomie@users.sourceforge.net>  Mon, 18 Jan 2010 14:16:56 -0500
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Mon, 18 Jan 2010 15:07:27 -0500
 
 wmsystemtray (1.0) unstable; urgency=low
 
