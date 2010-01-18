@@ -14,6 +14,7 @@ struct trayicon {
 
     /* private */
     Bool mapped;
+    Bool visible;
     Window parent;
     int x, y;
     struct trayicon *next;

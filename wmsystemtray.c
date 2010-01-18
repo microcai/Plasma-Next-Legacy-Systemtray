@@ -155,6 +155,7 @@ struct trayicon *icon_add(int type, Window w, void *data){
     icon->parent = None;
     icon->x = 0; icon->y = 0;
     icon->mapped = False;
+    icon->visible = False;
     icon->next = NULL;
     struct trayicon **p;
     for(p = &icons; *p; p=&(*p)->next);
@@ -296,6 +297,7 @@ redo:
         void *v=catch_BadWindow_errors();
         if(!icon->mapped || i<0 || i>=icons_per_page){
             warn(DEBUG_DEBUG, "Tray icon %lx is not visible", icon->w);
+            icon->visible = False;
             if(icon->parent == None){
                 // Parent it somewhere
                 warn(DEBUG_DEBUG, "Reparenting %lx to %lx", icon->w, iconwin[0]);
@@ -304,6 +306,7 @@ redo:
             }
             XUnmapWindow(display, icon->w);
         } else {
+            icon->visible = True;
             j = i;
             switch(fill_style){
               case 0:
@@ -719,6 +722,7 @@ int main(int argc, char *argv[]){
     warn(DEBUG_DEBUG, "Entering main loop");
     while(!exitapp){
         while(XPending(display)){
+            struct trayicon *icon = NULL;
             XNextEvent(display, &ev);
             warn(DEBUG_DEBUG, "Got X event %d", ev.type);
             switch(ev.type){
@@ -726,6 +730,22 @@ int main(int argc, char *argv[]){
               case Expose:
               case MapRequest:
                 need_update=True;
+                break;
+
+              case MapNotify:
+                icon = icon_find(ev.xmap.window);
+                if(icon && !icon->visible){
+                    warn(DEBUG_WARN, "A poorly-behaved application tried to map window %lx!", ev.xmap.window);
+                    need_update=True;
+                }
+                break;
+
+              case UnmapNotify:
+                icon = icon_find(ev.xunmap.window);
+                if(icon && icon->visible){
+                    warn(DEBUG_WARN, "A poorly-behaved application tried to unmap window %lx!", ev.xmap.window);
+                    need_update=True;
+                }
                 break;
 
               case DestroyNotify:
