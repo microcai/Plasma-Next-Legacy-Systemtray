@@ -1,0 +1,16 @@
+Source: wmsystemtray
+Section: utils
+Priority: extra
+Maintainer: Brad Jorsch <anomie@users.sourceforge.net>
+Build-Depends: debhelper (>= 7), autotools-dev
+Standards-Version: 3.8.3
+Homepage: http://sourceforge.net/projects/wmsystemtray/
+
+Package: wmsystemtray
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: A freedesktop.org system tray as a Window Maker dock app
+ wmsystemtray is a system tray using the freedesktop.org system tray
+ protocol designed as a Window Maker dock app. It has the ability to
+ display more than one dock window to make room for more tray icons, and the
+ ability to scroll through the icons if more are present than will fit.

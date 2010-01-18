@@ -1,0 +1,8 @@
+wmsystemtray for Debian
+-----------------------
+
+If a Debian developer wants to officially package this for Debian, just let me
+know and I will gladly remove this debian directory from my upstream sources.
+Until then, I want the package in my local repository.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Sat, 16 Jan 2010 20:52:20 -0500

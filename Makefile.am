@@ -1,13 +1,13 @@
 AUTOMAKE_OPTIONS = foreign
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = b0rken m4
+SUBDIRS = b0rken m4 debian
 
 bin_PROGRAMS = wmsystemtray
 
 wmsystemtray_SOURCES = fdtray.c fdtray.h wmsystemtray.c wmsystemtray.h wmsystemtray.xpm
-wmsystemtray_CFLAGS = @X_CFLAGS@ @libXmu_CFLAGS@ @libXmuu_CFLAGS@
-wmsystemtray_LDADD = b0rken/libb0rken.a @XLIBS@ @libXmu_LIBS@ @libXmuu_LIBS@
+wmsystemtray_CFLAGS = @X_CFLAGS@
+wmsystemtray_LDADD = b0rken/libb0rken.a @X_LIBS@
 
 man_MANS = wmsystemtray.1
 EXTRA_DIST = bootstrap $(man_MANS)

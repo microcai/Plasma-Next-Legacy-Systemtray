@@ -1,3 +1,17 @@
+wmsystemtray (1.1) unstable; urgency=low
+
+  * Add debian directory, so I can create local debs. If a Debian developer
+    wants to officially package this for Debian, just let me know and I will
+    gladly remove it from my upstream sources.
+  * Poorly-behaved apps (i.e. pretty much all of them) die if their tray icon
+    window gets destroyed. Use XFixesChangeSaveSet to prevent this from
+    happening if someone uses Window Maker's "Kill" on us.
+  * Generic configure cleanups.
+  * Minor fixes to build cleanly with -Wall.
+  * Bump copyright date.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Mon, 18 Jan 2010 14:16:56 -0500
+
 wmsystemtray (1.0) unstable; urgency=low
 
   * Initial release.

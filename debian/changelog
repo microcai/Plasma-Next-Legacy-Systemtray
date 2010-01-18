@@ -1,0 +1,11 @@
+wmsystemtray (1.1-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Mon, 18 Jan 2010 14:24:15 -0500
+
+wmsystemtray (1.0-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Sat, 16 Jan 2010 20:52:20 -0500

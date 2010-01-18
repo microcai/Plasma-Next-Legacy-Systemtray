@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_INIT(wmsystemtray.c)
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(wmsystemtray, 1.0)
+AM_INIT_AUTOMAKE(wmsystemtray, 1.1)
 
 DATE=`date '+%B %e, %Y'`
 AC_SUBST(DATE)
@@ -16,8 +16,10 @@ AC_PROG_LN_S
 AC_PROG_RANLIB
 
 # Checks for libraries.
-PKG_CHECK_MODULES(libXmuu,xmuu,,[
- PKG_CHECK_MODULES(libXmu,xmu)
+PKG_CHECK_MODULES(Xext,xext)
+PKG_CHECK_MODULES(Xfixes,xfixes)
+PKG_CHECK_MODULES(Xmuu,xmuu,,[
+ PKG_CHECK_MODULES(Xmu,xmu)
 ])
 
 # Checks for header files.
@@ -58,12 +60,11 @@ AC_FUNC_MALLOC
 if test "$ac_cv_func_malloc_0_nonnull" != "yes"; then AC_MSG_WARN(malloc() doesn't seem to work); fi
 AC_CHECK_FUNCS([atexit dup2 mkdir select strchr strcspn strdup strerror strrchr strspn strstr strtol],, AC_MSG_WARN($ac_func doesn't seem to be available))
 
-CFLAGS="$CFLAGS \$(X_CFLAGS) \$(libnotify_CFLAGS)"
-LIBS="$LIBS"
-XLIBS="\$(X_PRE_LIBS) \$(X_LIBS) \$(LINK_XPM) -lX11 -lXext \$(X_EXTRA_LIBS) \$(libnotify_LIBS)"
-AC_SUBST(XLIBS)
+X_CFLAGS="$X_CFLAGS \$(Xmu_CFLAGS) \$(Xmuu_CFLAGS) \$(Xfixes_CFLAGS) \$(Xext_CFLAGS)"
+X_LIBS="\$(X_PRE_LIBS) $X_LIBS \$(LINK_XPM) -lX11 \$(X_EXTRA_LIBS) \$(Xmu_LIBS) \$(Xmuu_LIBS) \$(Xfixes_LIBS) \$(Xext_LIBS)"
 
 AC_CONFIG_FILES([Makefile wmsystemtray.1])
 AC_CONFIG_FILES([b0rken/Makefile])
 AC_CONFIG_FILES([m4/Makefile])
+AC_CONFIG_FILES([debian/Makefile])
 AC_OUTPUT

@@ -1,5 +1,5 @@
 /* wmsystemtray
- * Copyright © 2009  Brad Jorsch <anomie@users.sourceforge.net>
+ * Copyright © 2009-2010  Brad Jorsch <anomie@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/xpm.h>
+#include <X11/extensions/Xfixes.h>
 #include <X11/extensions/shape.h>
 #include <X11/Xmu/SysUtil.h>
 
@@ -53,7 +54,7 @@ static Bool id_windows=False;
 static Bool point_messages=False;
 static int fill_style=0;
 static int arrow_style=0;
-static Bool no_messages=False;
+//static Bool no_messages=False;
 static int testmessagecount=0;
 
 Display *display=NULL;
@@ -139,6 +140,14 @@ struct trayicon *icon_add(int type, Window w, void *data){
         warn(DEBUG_ERROR, "Memory allocation failed");
         return NULL;
     }
+
+    void *v=catch_BadWindow_errors();
+    XFixesChangeSaveSet(display, w, SetModeInsert, SaveSetRoot, SaveSetUnmap);
+    if(uncatch_BadWindow_errors(v)){
+        warn(DEBUG_INFO, "Tray icon %lx is invalid, not adding", w);
+        return NULL;
+    }
+
     warn(DEBUG_DEBUG, "Adding tray icon %lx of type %d", w, type);
     icon->type = type;
     icon->w = w;
@@ -358,7 +367,7 @@ static void create_dock_windows(int argc, char **argv){
     Atom           _NET_WM_PID;
     XGCValues      gcv;
     unsigned long  gcm;
-    char           buf[1024], *n;
+    char           buf[1024];
     int            err, dummy=0, pid;
     Pixel          fgpix, bgpix;
 
@@ -722,7 +731,7 @@ int main(int argc, char *argv[]){
               case DestroyNotify:
                 if(exitapp) break;
                 if(selwindow==ev.xdestroywindow.window){
-                    warn(DEBUG_WARN, "Selection window destroyed!", ev.xdestroywindow.window);
+                    warn(DEBUG_WARN, "Selection window %lx destroyed!", ev.xdestroywindow.window);
                     exitapp=1;
                 }
                 for(int i=0; !exitapp && i<num_windows; i++){
