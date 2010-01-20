@@ -1,3 +1,10 @@
+wmsystemtray (1.2) unstable; urgency=low
+
+  * Correct a bug in detecting that we lost the freedesktop system tray
+    selection ownership.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Wed, 20 Jan 2010 11:33:19 -0500
+
 wmsystemtray (1.1) unstable; urgency=low
 
   * Add debian directory, so I can create local debs. If a Debian developer

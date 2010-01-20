@@ -98,7 +98,7 @@ static void event(XEvent *ev){
 
     switch(ev->type){
       case SelectionClear:
-        if(ev->xselectionclear.selection == net_system_tray_s && ev->xselectionclear.window != selwindow){
+        if(ev->xselectionclear.selection == net_system_tray_s && XGetSelectionOwner(display, net_system_tray_s) != selwindow){
             warn(DEBUG_ERROR, "fdtray: Another application (window %lx) has forcibly taken the system tray registration", ev->xselectionclear.window);
             exitapp = True;
         }
