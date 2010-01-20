@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_INIT(wmsystemtray.c)
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(wmsystemtray, 1.1)
+AM_INIT_AUTOMAKE(wmsystemtray, 1.2)
 
 DATE=`date '+%B %e, %Y'`
 AC_SUBST(DATE)
