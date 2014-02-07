@@ -6,7 +6,7 @@
 \fB\\$1\fR
 .PP
 ..
-.TH wmsystemtray 1x "@DATE@"
+.TH wmsystemtray 1 "@DATE@"
 .SH NAME
 wmsystemtray \- A freedesktop.org system tray as a Window Maker dock app
 .P

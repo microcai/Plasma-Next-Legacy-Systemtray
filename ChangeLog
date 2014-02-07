@@ -1,6 +1,7 @@
 wmsystemtray (1.3) unstable; urgency=medium
 
   * Remove debian directory, I see someone has officially packaged it (:
+  * Fix manpage section.
 
  -- Brad Jorsch <anomie@users.sourceforge.net>  Fri, 07 Feb 2014 13:49:44 -0500
 
