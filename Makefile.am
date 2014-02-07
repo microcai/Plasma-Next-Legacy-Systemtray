@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = foreign
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = b0rken m4 debian
+SUBDIRS = b0rken m4
 
 bin_PROGRAMS = wmsystemtray
 

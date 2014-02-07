@@ -66,5 +66,4 @@ X_LIBS="\$(X_PRE_LIBS) $X_LIBS \$(LINK_XPM) -lX11 \$(X_EXTRA_LIBS) \$(Xmu_LIBS) 
 AC_CONFIG_FILES([Makefile wmsystemtray.1])
 AC_CONFIG_FILES([b0rken/Makefile])
 AC_CONFIG_FILES([m4/Makefile])
-AC_CONFIG_FILES([debian/Makefile])
 AC_OUTPUT

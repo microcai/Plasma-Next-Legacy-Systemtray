@@ -1,2 +1,0 @@
-?package(wmsystemtray):needs="X11" section="Applications/Viewers"\
-  title="wmsystemtray" command="/usr/bin/wmsystemtray"
