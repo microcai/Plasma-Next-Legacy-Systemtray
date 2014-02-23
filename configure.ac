@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([wmsystemtray], [1.3])
+AC_INIT([wmsystemtray], [1.4])
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE()
 AM_SILENT_RULES([yes])
