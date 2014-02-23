@@ -88,6 +88,9 @@ the current "page" of icons and total number of pages currently available.
 
 In addition to left-clicking either scrolling arrows, the mouse's scroll wheel
 may be used on the bottom section to change pages.
+.SH SIGNALS
+SIGUSR1 and SIGUSR2 may be used to change pages. A program such as xbindkeys
+may be used to send these signals to wmsystemtray on appropriate key presses.
 .SH BUGS
 The balloon message portion of the freedesktop.org protocol is not implemented
 at this time. I've heard that the official Gnome system tray doesn't implement

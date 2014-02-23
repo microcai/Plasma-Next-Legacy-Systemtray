@@ -37,7 +37,7 @@
 
 /* Global variables */
 volatile sig_atomic_t exitapp=False;
-volatile sig_atomic_t testmessage=False;
+volatile sig_atomic_t sigusr=0;
 
 const char *PROGNAME=NULL;
 Bool nonwmaker=False;
@@ -55,7 +55,6 @@ static Bool point_messages=False;
 static int fill_style=0;
 static int arrow_style=0;
 //static Bool no_messages=False;
-static int testmessagecount=0;
 
 Display *display=NULL;
 int screen=0;
@@ -241,9 +240,10 @@ static void sighandler(int i){
         // Reload something?
         break;
       case SIGUSR1:
-        testmessage=True;
+        sigusr--;
         break;
       case SIGUSR2:
+        sigusr++;
         break;
     }
     signal(i,sighandler);
@@ -721,6 +721,16 @@ int main(int argc, char *argv[]){
     fd_set rfds;
     warn(DEBUG_DEBUG, "Entering main loop");
     while(!exitapp){
+        if (sigusr) {
+            warn(DEBUG_INFO, "Handling SIGUSR1/SIGUSR2, delta = %d", sigusr);
+            int pages = (num_mapped_icons-1)/icons_per_row/icons_per_col/num_windows + 1;
+            current_page += sigusr;
+            sigusr = 0;
+            while(current_page < 0) current_page += pages;
+            while(current_page >= pages) current_page -= pages;
+            need_update=True;
+        }
+
         while(XPending(display)){
             struct trayicon *icon = NULL;
             XNextEvent(display, &ev);
@@ -842,14 +852,6 @@ int main(int argc, char *argv[]){
         if(exitapp) break;
         warn(DEBUG_DEBUG, "Need update? %s", need_update?"Yes":"No");
         if(need_update) update();
-        if(testmessage){
-            testmessage=False;
-            if(!icon_begin_message(iconwin[0],++testmessagecount,12,1000)){
-                warn(DEBUG_ERROR,"Could not begin test message");
-            } else if(!icon_message_data(iconwin[0],testmessagecount,"Test message",12)){
-                warn(DEBUG_ERROR,"Could not send test message data");
-            }
-        }
 
         if(XPending(display)) continue;
         fd=ConnectionNumber(display);

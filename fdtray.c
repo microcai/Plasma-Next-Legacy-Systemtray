@@ -224,7 +224,7 @@ struct trayfuncs *fdtray_init(int id, int argc, char **argv){
 
     // Try to grab the system tray selection. ICCCM specifies that we first
     // check for an existing owner, then grab it with a non-CurrentTime
-    // timestamp, then check again if we now own int.
+    // timestamp, then check again if we now own it.
     if(XGetSelectionOwner(display, net_system_tray_s)){
         warn(DEBUG_WARN, "Another application is already running as the freedesktop.org protocol system tray");
         return NULL;
