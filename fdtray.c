@@ -18,8 +18,6 @@
 // http://standards.freedesktop.org/systemtray-spec/systemtray-spec-latest.html
 // http://standards.freedesktop.org/xembed-spec/xembed-spec-latest.html
 
-#include "config.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
